@@ -19,17 +19,17 @@ To follow along, we first create an index.html file with the following skeleton 
 ```html
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Vue Bar Chart</title>
-		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-		<style></style>
-	</head>
-	<body>
-		<div id="app"> </div>
-		<script></script>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Bar Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style></style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script></script>
+  </body>
 </html>
 ```
 
@@ -39,25 +39,25 @@ First, we add the chart title along with some basic styling
 
 ```html
 <style>
-	.bar-chart {
-		font-family: sans-serif;
-		font-size: 12px;
-		line-height: 1.5;
-		color: #333;
-		width: 50vw;
-		min-width: 300px;
-	}
+  .bar-chart {
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    width: 50vw;
+    min-width: 300px;
+  }
 
-	.bar-title {
-		font-size: 1.5em;
-		font-weight: bold;
-		margin: 0;
-	}
+  .bar-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+  }
 </style>
 <div id="app">
-	<div class="bar-chart">
-		<h3 class="bar-title">Age Group</h3>
-	</div>
+  <div class="bar-chart">
+    <h3 class="bar-title">Age Group</h3>
+  </div>
 </div>
 ```
 
@@ -65,49 +65,49 @@ Let's take a look at one bar. Each bar has four components: a title label, a gra
 
 ```html
 <style>
-	.bar-chart {
-		/* Omitted */
-	}
+  .bar-chart {
+    /* Omitted */
+  }
 
-	.bar-title {
-		/* Omitted */
-	}
+  .bar-title {
+    /* Omitted */
+  }
 
-	.bar {
-		position: relative;
-		margin: 0 48px 8px 0;
-		height: 16px;
-	}
+  .bar {
+    position: relative;
+    margin: 0 48px 8px 0;
+    height: 16px;
+  }
 
-	.bar-bg {
-		background: #f5f5f5;
-		height: 100%;
-		width: 100%;
-		position: absolute;
-	}
+  .bar-bg {
+    background: #f5f5f5;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
 
-	.bar-fg {
-		background: #a7c7ad;
-		height: 100%;
-		position: absolute;
-	}
+  .bar-fg {
+    background: #a7c7ad;
+    height: 100%;
+    position: absolute;
+  }
 
-	.bar-value {
-		position: absolute;
-		padding: 0 4px;
-	}
+  .bar-value {
+    position: absolute;
+    padding: 0 4px;
+  }
 </style>
 
 <div id="app">
-	<div class="bar-chart">
-		<h3 class="bar-title">Age Group</h3>
-		<div class="bar-label">Youth (18-24)</div>
-		<div class="bar">
-			<div class="bar-bg"></div>
-			<div class="bar-fg" style="width: 9%"></div>
-			<div class="bar-value" style="left: 9%">9%</div>
-		</div>
-	</div>
+  <div class="bar-chart">
+    <h3 class="bar-title">Age Group</h3>
+    <div class="bar-label">Youth (18-24)</div>
+    <div class="bar">
+      <div class="bar-bg"></div>
+      <div class="bar-fg" style="width: 9%"></div>
+      <div class="bar-value" style="left: 9%">9%</div>
+    </div>
+  </div>
 </div>
 ```
 
@@ -115,45 +115,45 @@ We used two `div`s to achieve the title label above the bar effect. Inside the b
 
 ```html
 <div id="app">
-	<div class="bar-chart">
-		<h3 class="bar-title">Age Group</h3>
-		<div v-for="d in barData" :key="d.label">
-			<div class="bar-label">
-				{{ d.label }}
-			</div>
-			<div class="bar">
-				<div class="bar-bg"></div>
-				<div
-					:style="{
+  <div class="bar-chart">
+    <h3 class="bar-title">Age Group</h3>
+    <div v-for="d in barData" :key="d.label">
+      <div class="bar-label">
+        {{ d.label }}
+      </div>
+      <div class="bar">
+        <div class="bar-bg"></div>
+        <div
+          :style="{
                 width: `${d.value * 100}%`,
               }"
-					class="bar-fg"
-				></div>
-				<div
-					:style="{
+          class="bar-fg"
+        ></div>
+        <div
+          :style="{
                 left: `${d.value * 100}%`,
               }"
-					class="bar-value"
-				>
-					{{ d.value }}
-				</div>
-			</div>
-		</div>
-	</div>
+          class="bar-value"
+        >
+          {{ d.value }}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-	new Vue({
-		el: "#app",
-		data: {
-			barData: [
-				{ label: "Youth (18-24)", value: 0.092 },
-				{ label: "Young adulthood (25-39)", value: 0.4239 },
-				{ label: "Middle adulthood (40-64)", value: 0.4448 },
-				{ label: "Senior (65+)", value: 0.0393 }
-			]
-		}
-	});
+  new Vue({
+    el: "#app",
+    data: {
+      barData: [
+        { label: "Youth (18-24)", value: 0.092 },
+        { label: "Young adulthood (25-39)", value: 0.4239 },
+        { label: "Middle adulthood (40-64)", value: 0.4448 },
+        { label: "Senior (65+)", value: 0.0393 }
+      ]
+    }
+  });
 </script>
 ```
 
@@ -163,7 +163,7 @@ The bar label value depends on the `label` attribute of each data entry
 
 ```html
 <div class="bar-label">
-	{{ d.label }}
+  {{ d.label }}
 </div>
 ```
 
@@ -171,18 +171,18 @@ The length of the foreground and the left position of the value label depend on 
 
 ```html
 <div
-	:style="{
+  :style="{
     width: `${d.value * 100}%`,
   }"
-	class="bar-fg"
+  class="bar-fg"
 ></div>
 <div
-	:style="{
+  :style="{
     left: `${d.value * 100}%`,
   }"
-	class="bar-value"
+  class="bar-value"
 >
-	{{ d.value }}
+  {{ d.value }}
 </div>
 ```
 
@@ -190,25 +190,25 @@ We also used a filter to show the value label as percentage.
 
 ```html
 <div
-	:style="{
+  :style="{
     left: `${d.value * 100}%`,
   }"
-	class="bar-value"
+  class="bar-value"
 >
-	{{ d.value | formatPercentage }}
+  {{ d.value | formatPercentage }}
 </div>
 <script>
-	new Vue({
-		el: "#app",
-		data: {
-			// Omitted
-		},
-		filters: {
-			formatPercentage: function(value) {
-				return `${Math.round(value * 100)}%`;
-			}
-		}
-	});
+  new Vue({
+    el: "#app",
+    data: {
+      // Omitted
+    },
+    filters: {
+      formatPercentage: function(value) {
+        return `${Math.round(value * 100)}%`;
+      }
+    }
+  });
 </script>
 ```
 
