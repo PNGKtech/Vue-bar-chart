@@ -1,6 +1,6 @@
 # How to build a bar chart using Vue.js
 
-Recently, PNGK has worked with [HiiL (The Hague Institute for Innovation of Law)](https://www.hiil.org/) to build a [dashboard](https://justicemoroccoprototype.hiil.org/) about the daily legal challenges that people face in Morocco. We used Vue.js as the frontend framework and we needed to showcase data through data visualizations. One of the them is a custom bar chart. In this article we’ll describe how we can make the following bar chart entirely with Vue.js without any external charting libraries.
+Recently, PNGK has worked with [HiiL (The Hague Institute for Innovation of Law)](https://www.hiil.org/) to build a [dashboard](https://justicemoroccoprototype.hiil.org/) about the daily legal challenges that people face in Morocco. We used Vue.js as the frontend javascript framework and we needed to showcase data through data visualizations. One of the them is a custom bar chart. In this article we’ll describe how we can make the following bar chart entirely with Vue.js without any external charting libraries.
 
 ![Image of bar chart](bar-chart.png)
 
@@ -10,7 +10,9 @@ There are a lot of JavaScript charting libraries out there that can make a bar c
 
 1. No additional charting libraries means smaller bundle size.
 2. Our design requires the bar chart can fit on a narrow width. This requires the bar label to be placed above the bar instead of the usual bar chart that places it next to the bar.
-3. We need to show a right-to-left version of the bar chart in Arabic locale.
+3. We need to show a right-to-left version of the bar chart in Arabic locale, shown below. Note: this tutorial does not cover how to create the right-to-left version.
+
+![Image of arabic bar chart](arabic-bar-chart.png)
 
 ## How do we create this?
 
@@ -35,7 +37,17 @@ To follow along, we first create an index.html file with the following skeleton 
 
 We loaded Vue in the script tag, and we have a `div` element with `id` of `app` that we will render our Vue.js bar chart.
 
-First, we add the chart title along with some basic styling
+Next, we add the chart title along with some basic styling
+
+```html
+<div id="app">
+  <div class="bar-chart">
+    <h3 class="bar-title">Age Group</h3>
+  </div>
+</div>
+```
+
+And some basic styling
 
 ```html
 <style>
@@ -54,12 +66,9 @@ First, we add the chart title along with some basic styling
     margin: 0;
   }
 </style>
-<div id="app">
-  <div class="bar-chart">
-    <h3 class="bar-title">Age Group</h3>
-  </div>
-</div>
 ```
+
+### Manually render one bar
 
 Let's take a look at one bar. Each bar has four components: a title label, a gray background bar, a colored foreground bar, and a value label.
 
@@ -97,7 +106,11 @@ Let's take a look at one bar. Each bar has four components: a title label, a gra
     padding: 0 4px;
   }
 </style>
+```
 
+We used two `div`s to achieve the title label above the bar effect. Inside the bar `div`, we used three absolute positioned `div`s to represent the bar background, the bar foreground, and the bar value label.
+
+```html
 <div id="app">
   <div class="bar-chart">
     <h3 class="bar-title">Age Group</h3>
@@ -111,7 +124,9 @@ Let's take a look at one bar. Each bar has four components: a title label, a gra
 </div>
 ```
 
-We used two `div`s to achieve the title label above the bar effect. Inside the bar `div`, we used three absolute positioned `div`s to represent the bar background, the bar foreground, and the bar value label. In the above code, we manually coded the `9%` value. Now we will use the power of Vue.js to add multiple bars dynamically.
+### Dynamically generate bars
+
+In the above section, we manually coded the `9%` value. Now we will use the power of Vue.js to add multiple bars dynamically.
 
 ```html
 <div id="app">
@@ -186,7 +201,9 @@ The length of the foreground and the left position of the value label depend on 
 </div>
 ```
 
-We also used a filter to show the value label as percentage.
+### Creating cleaner value labels
+
+We can also used the [filter](https://vuejs.org/v2/guide/filters.html) functionality in Vue.js to show the value label as percentage.
 
 ```html
 <div
@@ -212,8 +229,8 @@ We also used a filter to show the value label as percentage.
 </script>
 ```
 
-The full code can be accessed at PNGK's [repo]().
+The full code can be accessed at PNGK's [github repo](https://github.com/PNGKtech/Vue-bar-chart).
 
 ## What's next?
 
-Please let us know what you want to see in our future data visualizations in Vue.js series.
+Please let us know what you want to see in our future **Data Visualizations in Vue.js** series.
